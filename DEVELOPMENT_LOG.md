@@ -1,5 +1,5 @@
 ﻿## SID-20260626-7a8f3e — Execute GitHub upload for CMC
-last edited: 2026-06-26 10:39
+last edited: 2026-06-26 10:43
 
 **Goal:** Execute the planned GitHub upload: create public repo `CameoMapConverter`, commit the source tree, and publish `v0.76-beta-hotfix1` release with zip assets.
 
@@ -86,10 +86,24 @@ last edited: 2026-06-26 10:39
    - Committed as `chore: add The Unlicense (public domain dedication)` (`b0e1b39`).
    - GitHub detected the license as `The Unlicense` on the repo page (`GET https://api.github.com/repos/Renegade1993/CameoMapConverter`).
 
+8. **Release asset regeneration**
+   - User asked to regenerate the release zips to include the license and latest documentation.
+   - Updated `Create Distribution.cmd`:
+     - Copy `LICENSE` into `Distribution\Release\` so the end-user zip includes the license.
+     - Copy `LICENSE`, `DEVELOPMENT_LOG.md`, `CLAUDE.md`, and `.gitignore` into `Distribution\source\` so the source snapshot includes project/legal docs.
+     - Create the release zip (`CameoMapConverter_v0.76-beta-hotfix1.zip`) automatically from `Distribution\Release\`.
+     - Removed the interactive `pause` at the end so the script can run headlessly.
+   - Ran `Create Distribution.cmd` to regenerate both zips from the current repo state.
+   - Deleted the old release assets via `DELETE https://api.github.com/repos/Renegade1993/CameoMapConverter/releases/assets/{id}` for each asset.
+   - Re-uploaded the new zips:
+     - `CameoMapConverter_v0.76-beta-hotfix1.zip` — 57,069,520 bytes (≈54.4 MB)
+     - `CameoMapConverter_v0.76-beta-hotfix1_source.zip` — 294,097 bytes (≈287 KB)
+   - Verified both new zips contain a `LICENSE` entry.
+
 **Status/Next steps:**
 - The 90-day PAT should be deleted from GitHub settings once the upload is confirmed working.
 - The `Cameo Work\to delete\` folder and old backup snapshots were not committed.
-- The release source zip was built before the license was added; if a licensed source snapshot is needed, regenerate and re-upload it.
+- `Create Distribution.cmd` was modified to include the license and auto-create the release zip; commit this change to the repo.
 
 ---
 

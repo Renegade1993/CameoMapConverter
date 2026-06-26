@@ -50,6 +50,7 @@ REM ---- Top-level docs (landing page + quick start) ----
 echo Copying top-level documentation...
 copy /Y "README.md"       "%RELEASE_DIR%\README.md" >nul 2>&1 && echo   - README.md
 copy /Y "QUICKSTART.md"   "%RELEASE_DIR%\QUICKSTART.md" >nul 2>&1 && echo   - QUICKSTART.md
+copy /Y "LICENSE"         "%RELEASE_DIR%\LICENSE" >nul 2>&1 && echo   - LICENSE
 
 REM ---- Source and tests excluded from Release (for now) ----
 echo Skipping source and tests from Release (exe-only distribution)
@@ -99,6 +100,13 @@ for %%F in (
     copy /Y %%F "%SRC_DIST_DIR%\" >nul 2>&1 && echo   - %%~F
 )
 
+REM ---- Copy project/legal docs to source distribution ----
+echo Copying project and legal docs to Distribution\source...
+copy /Y "LICENSE"           "%SRC_DIST_DIR%\LICENSE" >nul 2>&1 && echo   - LICENSE
+copy /Y "DEVELOPMENT_LOG.md" "%SRC_DIST_DIR%\DEVELOPMENT_LOG.md" >nul 2>&1 && echo   - DEVELOPMENT_LOG.md
+copy /Y "CLAUDE.md"         "%SRC_DIST_DIR%\CLAUDE.md" >nul 2>&1 && echo   - CLAUDE.md
+copy /Y ".gitignore"        "%SRC_DIST_DIR%\.gitignore" >nul 2>&1 && echo   - .gitignore
+
 REM ---- Copy dev_tools folder (diagnostic scripts, not required at runtime) ----
 echo Copying dev_tools to Distribution\source...
 if exist dev_tools (
@@ -129,6 +137,21 @@ echo ========================================
 echo Location: %RELEASE_DIR%\.
 echo Source zip: %SOURCE_ZIP%
 echo.
-echo To ship: zip the Release\ folder and send it to the recipient.
+REM ---- Create release zip ----
+echo Creating release zip...
+set RELEASE_ZIP=%DIST_DIR%\CameoMapConverter_v%VERSION%.zip
+if exist "%RELEASE_ZIP%" del /F "%RELEASE_ZIP%"
+powershell -NoProfile -Command "Compress-Archive -Path '%RELEASE_DIR%\*' -DestinationPath '%RELEASE_ZIP%'"
+if exist "%RELEASE_ZIP%" (
+    echo   - %RELEASE_ZIP%
+) else (
+    echo   WARNING: release zip creation failed.
+)
+
 echo.
-pause
+echo ========================================
+echo Distribution package created.
+echo ========================================
+echo Release zip: %RELEASE_ZIP%
+echo Source zip: %SOURCE_ZIP%
+echo.
