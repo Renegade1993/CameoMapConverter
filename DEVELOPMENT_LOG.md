@@ -27,7 +27,7 @@ last edited: 2026-06-26 10:23
 - Repo root contains source files, configs, docs, tests, `dev_tools/`, and `maps/`.
 
 **Status/Next steps:**
-- License is pending. Kmoney wants a permissive license that retains the least rights to him (e.g., MIT) and belongs to the community. Add `LICENSE` file in a follow-up commit.
+- License: The Unlicense (public domain dedication). `LICENSE` file added in a follow-up commit.
 - Consider deleting the 90-day PAT from GitHub settings once confirmed working.
 - The `Cameo Work\to delete\` folder and old backup snapshots were not committed.
 

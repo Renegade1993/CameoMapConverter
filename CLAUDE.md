@@ -501,5 +501,5 @@ No other functionality changed — just unzip and run as usual. If anyone still 
 
 - GitHub repository: `https://github.com/Renegade1993/CameoMapConverter`
 - Latest release: `https://github.com/Renegade1993/CameoMapConverter/releases/tag/v0.76-beta-hotfix1`
-- License: pending — Kmoney prefers a permissive license (e.g., MIT) that retains minimal rights to him and belongs to the community.
+- License: The Unlicense — dedicated to the public domain, zero conditions.
 - The compiled EXE and distribution zips are **GitHub Release assets**, not files in the git repo.
