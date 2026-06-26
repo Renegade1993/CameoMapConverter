@@ -313,7 +313,7 @@ convert and distribute any maps you process.
 
 | Role | Name |
 |------|------|
-| Tool author | **Kmoney** — designed and built CMC using [Devin AI](https://devin.ai) and [Claude](https://claude.ai) (Anthropic) as AI development partners |
+| Tool author | **Renegade1993** — designed and built CMC using [Devin AI](https://devin.ai) and [Claude](https://claude.ai) (Anthropic) as AI development partners |
 | Inspiration & design input | **Aedis** — whose tournament maps and resource-balance vision drove the core design; the "even distribution" mode is directly his prime directive |
 | Application icon | **zhall** — created and donated the official CMC icon (`Icon/cmc.ico`) |
 

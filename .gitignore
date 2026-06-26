@@ -40,3 +40,6 @@ CameoMapConverter.exe
 # Crash / debug logs
 gui_crash_log.txt
 paint_matrix_debug.txt
+
+# Community feedback/bug reports (local notes, not public release content)
+Community Feedback and Bug Reports/

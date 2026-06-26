@@ -9,9 +9,9 @@ Before doing any analysis or implementation in a new session, follow this checkl
 ### 1. Mandatory Ingestion (do this first)
 
 1. **Ingest all global and project instructions**
-   - `C:\Users\Kmoney\AppData\Roaming\Devin\SESSION_START_PROTOCOL.md`
-   - `C:\Users\Kmoney\.claude\CLAUDE.md` (global)
-   - `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\CLAUDE.md` (workspace)
+   - `C:\Users\Renegade1993\AppData\Roaming\Devin\SESSION_START_PROTOCOL.md`
+   - `C:\Users\Renegade1993\.claude\CLAUDE.md` (global)
+   - `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\CLAUDE.md` (workspace)
    - This file (`Cameo Map Converter\CLAUDE.md`) — project-specific memory and rules.
 
 2. **Familiarize yourself with the reference manual**
@@ -329,13 +329,13 @@ Regenerable outputs (`maps/converted*`), superseded plans, and old tests were mo
 ## Backup and Cleanup Locations
 
 Before any destructive or disruptive work, take a timestamped full-project backup under:
-- `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Backups\Cameo_Map_Converter_YYYY-MM-DD_HH-MM-SS`
+- `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\Backups\Cameo_Map_Converter_YYYY-MM-DD_HH-MM-SS`
 
 During cleanup, move files to the appropriate location instead of deleting them:
 - **Disposable/cache files** (e.g. `__pycache__`, `.pytest_cache`, `log` output, debug renders) →
-  `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\to delete\`
+  `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\to delete\`
 - **Files that might be useful later** (old crash logs, archived dev logs, pre-beta reports, superseded guides) →
-  `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Backups\Archived\`
+  `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\Backups\Archived\`
 
 Never delete project files directly; always relocate them to `to delete\` first.
 
@@ -375,7 +375,7 @@ When the user requests a handoff (e.g., "stop work and hand the session off"), p
 # Handoff — Cameo Map Converter Session
 
 ## Current state
-- Project path: `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Maps and Solutions Scripts work 06-15-2026\Cameo Map Converter`
+- Project path: `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\Maps and Solutions Scripts work 06-15-2026\Cameo Map Converter`
 - Code compiles: `py -m py_compile cameo_converter_gui.py cameo_map_converter.py` ✅
 - Tests pass: `py -m pytest tests` → 21/21 ✅
 - Last validator run: `py validate_resource_distribution.py` → ALL CHECKS PASSED ✅
@@ -409,9 +409,9 @@ The Claude Code MCP server is currently **unavailable** unless explicitly re-ena
 
 ## Source Code Locations
 
-- OpenRA engine: `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Other Game Sources\OpenRA-playtest-20260222 (source)`
-- Cameo mod: `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Cameo-mod-playtest-20260614 (source)`
-- Installed mod: `C:\Users\Kmoney\AppData\Roaming\OpenRA\maps\cameo\playtest-20260614`
+- OpenRA engine: `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\Other Game Sources\OpenRA-playtest-20260222 (source)`
+- Cameo mod: `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\Cameo-mod-playtest-20260614 (source)`
+- Installed mod: `C:\Users\Renegade1993\AppData\Roaming\OpenRA\maps\cameo\playtest-20260614`
 
 ## Conversion Pipeline
 

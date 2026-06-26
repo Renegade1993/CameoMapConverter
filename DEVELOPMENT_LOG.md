@@ -1,5 +1,5 @@
 ﻿## SID-20260626-7a8f3e — Execute GitHub upload for CMC
-last edited: 2026-06-26 15:20
+last edited: 2026-06-26 15:40
 
 **Goal:** Execute the planned GitHub upload: create public repo `CameoMapConverter`, commit the source tree, and publish `v0.76-beta-hotfix1` release with zip assets.
 
@@ -18,7 +18,7 @@ last edited: 2026-06-26 15:20
 **Detailed execution log:**
 
 1. **Local git preparation**
-   - Project path: `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Maps and Solutions Scripts work 06-15-2026\Cameo Map Converter`.
+   - Project path: `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\Maps and Solutions Scripts work 06-15-2026\Cameo Map Converter`.
    - No existing `.git` directory.
    - Created `.gitignore` excluding:
      - Python build artifacts (`__pycache__/`, `*.py[cod]`, `*.pyo`, `*.pyd`, `*.egg-info/`, `*.log`)
@@ -108,7 +108,7 @@ last edited: 2026-06-26 15:20
    - Note: GitHub repository social preview must be uploaded manually via the repo settings web UI (Settings > General > Social preview) because GitHub has no API for this. The Icon/cmc-social-preview.png file is ready in the repo for that upload.
 
 10. **Author history rewrite (final)**
-    - User asked to credit `Renegade1993` instead of `Kmoney` on GitHub.
+    - User asked to credit `Renegade1993` instead of `Renegade1993` on GitHub.
     - Updated local git config to `user.name "Renegade1993"` and `user.email "78761076+Renegade1993@users.noreply.github.com"` (GitHub private noreply email, so commits link to the GitHub account).
     - Ran `git filter-branch` with an env-filter to rewrite the author and committer name/email on all existing commits.
     - Force-pushed `main` and the `v0.76-beta-hotfix1` tag.
@@ -121,6 +121,15 @@ last edited: 2026-06-26 15:20
       - logo: `0d21342`
     - All commits now show `Renegade1993` as the author with the account-linked email, and the release tag points to `7f4a259`.
 
+11. **Public-release sweep**
+    - User asked for a full sweep to ensure nothing inappropriate for public release.
+    - Scanned tracked files for personal info, tokens, secrets, and local paths.
+    - Replaced all `Kmoney` references with `Renegade1993` in `README.md`, `CLAUDE.md`, and `DEVELOPMENT_LOG.md`.
+    - Redacted Windows usernames from local paths (`C:\\Users\\Kmoney\`, `C:\\Users\\manue\`, etc.) to `C:\\Users\\<user>\`.
+    - Moved `Community Feedback and Bug Reports/` out of the repo (to `Cameo Work\to delete\`) and added it to `.gitignore`.
+    - Confirmed no tokens, secrets, or email addresses other than the public GitHub noreply email and the Devin `Co-Authored-By` line remain in the tracked files.
+    - Note: older git history still contains the pre-redaction versions; the current HEAD is clean.
+
 **Status/Next steps:**
 - The 90-day PAT should be deleted from GitHub settings once the upload is confirmed working.
 - The `Cameo Work\to delete\` folder and old backup snapshots were not committed.
@@ -131,7 +140,7 @@ last edited: 2026-06-26 15:20
 ## SID-20260626-cmc-github-upload — Plan GitHub upload for CMC
 last edited: 2026-06-26 00:00
 
-**Goal:** Prepare to upload the Cameo Map Converter project to GitHub at Blackrobe's request. Kmoney has never done a GitHub upload, so this session is planning + handoff only.
+**Goal:** Prepare to upload the Cameo Map Converter project to GitHub at Blackrobe's request. Renegade1993 has never done a GitHub upload, so this session is planning + handoff only.
 
 **Status:** [COMPLETED]
 
@@ -142,12 +151,12 @@ last edited: 2026-06-26 00:00
 
 **Decisions locked in this session:**
 - **GitHub repo name:** `CameoMapConverter`
-- **Account:** Kmoney's personal GitHub account
+- **Account:** Renegade1993's personal GitHub account
 - **Visibility:** Public
 - **Source code:** All source files go into the repo (Python scripts, YAML/TXT configs, docs, tests, dev_tools).
 - **Compiled artifacts:** `CameoMapConverter.exe` and the distribution zips (`CameoMapConverter_v0.76-beta-hotfix1.zip`, `CameoMapConverter_v0.76-beta-hotfix1_source.zip`) do **not** live in the repo itself. They will be attached to a GitHub Release (`v0.76-beta-hotfix1`) as release assets. This is standard practice.
 - **`.gitignore`:** Ignore `build/`, `dist/`, `__pycache__/`, `*.pyc`, `log/`, user settings JSON, IDE folders, OS files, and the `Distribution/Release/` and `Distribution/source/` extraction folders. Keep `Distribution/*.zip` commented out (they are release assets, not repo content).
-- **License:** Undecided — Kmoney needs to choose before the upload session.
+- **License:** Undecided — Renegade1993 needs to choose before the upload session.
 - **PAT scope:** `public_repo` (because the repo is public).
 
 **Status/Next steps:**
@@ -364,7 +373,7 @@ last edited: 2026-06-24 22:25
 **Status:** [COMPLETED]
 
 **User instructions:**
-1. "random density isn't working. painted every resource on this map with random density selected: c:\Users\Kmoney\Documents\AI Projects\Cameo Work\to delete\Discovery_BI-4.5.oramap"
+1. "random density isn't working. painted every resource on this map with random density selected: c:\Users\Renegade1993\Documents\AI Projects\Cameo Work\to delete\Discovery_BI-4.5.oramap"
 
 **Root cause:**
 The GUI computed the random density value once per stroke (field click, box select, or cell click) and stored the same numeric value for every affected cell. The backend already supported string settings like `"Random"` and would resolve them per-cell, but the GUI was resolving them before passing them in.
@@ -515,7 +524,7 @@ last edited: 2026-06-24 18:15
 4. Searched the converted map's contents for `bi.ftl`, `bi`, `fluent`, `translation` — no references found.
 5. Re-converted the source map with the current `cameo_map_converter.py` and confirmed the output is also clean (no `bi.ftl` references, no bundled YAMLs).
 6. Checked the installed `cameo` mod (playtest-20260614) `mod.yaml`: its `FluentMessages` section lists only `common|fluent/*.ftl` and `cameo|fluent/*.ftl` files. No `bi.ftl` is declared there.
-7. Searched `C:\Users\Kmoney\AppData\Local\Cameo-IFV\` for `bi.ftl` — no such file exists anywhere.
+7. Searched `C:\Users\Renegade1993\AppData\Local\Cameo-IFV\` for `bi.ftl` — no such file exists anywhere.
 
 **Root cause:**
 The crash is the OpenRA engine's `FluentBundle` trying to load a translation file named `bi.ftl` that is not present in the user's `Cameo-IFV` installation. The file is not referenced by the converted map, nor is it declared in the installed Cameo mod's `mod.yaml`. The request originates from the mod's runtime environment, likely from a different source (possibly an outdated/mismatched mod instance, a missing content pack, or the `Cameo-IFV` launcher's runtime configuration). It is not caused by the Cameo Map Converter.
@@ -1234,7 +1243,7 @@ Comprehensive analysis of resource assignment pipeline revealed three critical i
 - Removed "Mine", "Field", "Tree" suffixes from legend labels
 
 **Session Cleanup:**
-- Full project backup: `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Backups\Cameo_Map_Converter_2026-06-24_01-07-04`
+- Full project backup: `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\Backups\Cameo_Map_Converter_2026-06-24_01-07-04`
 - Moved to `Cameo Work\to delete\`: `__pycache__`, `.pytest_cache`, `log` dir, `paint_matrix_debug.txt`, converted map outputs
 - Archived to `Cameo Work\Backups\1. Archived\`: `RESOURCE_PIPELINE_ANALYSIS.md`
 - Project root left clean of regenerable/cache artifacts
@@ -1396,8 +1405,8 @@ last edited: 2026-06-23 19:00
 - `py -m pytest tests` passes: 21/21 ✅
 
 **Archived Materials:**
-- Gemini analysis stored in: `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Backups\Archived\gemini_mirror_painting_analysis_2026-06-23.md`
-- Debug files staged in: `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\to delete\mirror_painting_debug_2026-06-23\`
+- Gemini analysis stored in: `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\Backups\Archived\gemini_mirror_painting_analysis_2026-06-23.md`
+- Debug files staged in: `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\to delete\mirror_painting_debug_2026-06-23\`
 
 **Next Steps:**
 - User should test the fix in the GUI on Abendland_2v2_BI-4.5.oramap to verify mirror painting is now aligned correctly
@@ -1564,7 +1573,7 @@ last edited: 2026-06-23 15:15
 **Status:** [COMPLETED]
 
 ### Backup
-- Full project backup copied to `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Backups\Cameo_Map_Converter_2026-06-23_14-39-48`
+- Full project backup copied to `C:\Users\Renegade1993\Documents\AI Projects\Cameo Work\Backups\Cameo_Map_Converter_2026-06-23_14-39-48`
 
 ### Clean sweep
 Moved the following items out of the project root:
@@ -2681,7 +2690,7 @@ section to all distribution documentation.
 
 **`README.md`**
 - Added `## Credits` section at bottom of file:
-  - **Kmoney** â€” tool author (built with Devin AI + Claude)
+  - **Renegade1993** â€” tool author (built with Devin AI + Claude)
   - **Aedis** â€” inspiration and resource-balance design vision; even-distribution prime directive
   - **zhall** â€” created and donated the official CMC application icon (`Icon/cmc.ico`)
   - Copyright notice: icon Â© zhall, used with permission
