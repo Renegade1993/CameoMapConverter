@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="Icon/cmc.png" alt="Cameo Map Converter icon" width="128" height="128">
+</p>
+
 # Cameo Map Converter
 
 Automates onboarding OpenRA maps from the **Balance Iteration 4.3-4.6 era** into the Cameo mod.

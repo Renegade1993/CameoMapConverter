@@ -1,5 +1,5 @@
 ﻿## SID-20260626-7a8f3e — Execute GitHub upload for CMC
-last edited: 2026-06-26 10:43
+last edited: 2026-06-26 15:15
 
 **Goal:** Execute the planned GitHub upload: create public repo `CameoMapConverter`, commit the source tree, and publish `v0.76-beta-hotfix1` release with zip assets.
 
@@ -99,6 +99,13 @@ last edited: 2026-06-26 10:43
      - `CameoMapConverter_v0.76-beta-hotfix1.zip` — 57,069,520 bytes (≈54.4 MB)
      - `CameoMapConverter_v0.76-beta-hotfix1_source.zip` — 294,097 bytes (≈287 KB)
    - Verified both new zips contain a `LICENSE` entry.
+
+9. **Project logo / social preview**
+   - User asked to use the CMC icon as the project logo.
+   - Generated Icon/cmc.png (128x128) from Icon/cmc.ico for the README.
+   - Generated Icon/cmc-social-preview.png (1280x640) for the GitHub social preview.
+   - Added the logo to the top of README.md using a centered <img> tag referencing Icon/cmc.png.
+   - Note: GitHub repository social preview must be uploaded manually via the repo settings web UI (Settings > General > Social preview) because GitHub has no API for this. The Icon/cmc-social-preview.png file is ready in the repo for that upload.
 
 **Status/Next steps:**
 - The 90-day PAT should be deleted from GitHub settings once the upload is confirmed working.
