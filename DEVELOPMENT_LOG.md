@@ -1,5 +1,5 @@
 ﻿## SID-20260626-7a8f3e — Execute GitHub upload for CMC
-last edited: 2026-06-26 15:17
+last edited: 2026-06-26 15:20
 
 **Goal:** Execute the planned GitHub upload: create public repo `CameoMapConverter`, commit the source tree, and publish `v0.76-beta-hotfix1` release with zip assets.
 
@@ -32,10 +32,10 @@ last edited: 2026-06-26 15:17
      - `git init`
      - `git branch -M main`
      - `git config --local user.name "Renegade1993"`
-     - `git config --local user.email "Renegade1993@users.noreply.github.com"`
+     - `git config --local user.email "78761076+Renegade1993@users.noreply.github.com"`
      - `git add .`
      - `git commit -m "Initial commit: Cameo Map Converter v0.76-beta-hotfix1"`
-   - Result: root commit `919231c`, 88 files changed, 29984 insertions.
+   - Result: root commit `7f4a259`, 88 files changed, 29984 insertions.
 
 2. **GitHub authentication**
    - Used a GitHub Personal Access Token (classic) with `public_repo` scope (90-day expiry, broadly scoped).
@@ -83,7 +83,7 @@ last edited: 2026-06-26 15:17
 7. **License follow-up**
    - User chose **The Unlicense** (public domain dedication, zero conditions).
    - Added `LICENSE` file with the standard Unlicense text from `https://choosealicense.com/licenses/unlicense/`.
-   - Committed as `chore: add The Unlicense (public domain dedication)` (`87b4486`).
+   - Committed as `chore: add The Unlicense (public domain dedication)` (`e1554b2`).
    - GitHub detected the license as `The Unlicense` on the repo page (`GET https://api.github.com/repos/Renegade1993/CameoMapConverter`).
 
 8. **Release asset regeneration**
@@ -107,13 +107,19 @@ last edited: 2026-06-26 15:17
    - Added the logo to the top of README.md using a centered <img> tag referencing Icon/cmc.png.
    - Note: GitHub repository social preview must be uploaded manually via the repo settings web UI (Settings > General > Social preview) because GitHub has no API for this. The Icon/cmc-social-preview.png file is ready in the repo for that upload.
 
-10. **Author history rewrite**
-    - User asked to credit Renegade1993 instead of Kmoney on GitHub.
-    - Updated local git config to user.name "Renegade1993" and user.email "Renegade1993@users.noreply.github.com".
-    - Ran git filter-branch with an env-filter to rewrite the author and committer name/email on all existing commits.
-    - Force-pushed main (+ 593d020...d86ec44 main -> main) and the v0.76-beta-hotfix1 tag (+ 014c9f2...59ddd91 v0.76-beta-hotfix1 -> v0.76-beta-hotfix1).
-    - All commits now show Renegade1993 as the author and the release tag points to the rewritten initial commit 919231c.
-    - SHAs referenced above were updated to the rewritten values.
+10. **Author history rewrite (final)**
+    - User asked to credit `Renegade1993` instead of `Kmoney` on GitHub.
+    - Updated local git config to `user.name "Renegade1993"` and `user.email "78761076+Renegade1993@users.noreply.github.com"` (GitHub private noreply email, so commits link to the GitHub account).
+    - Ran `git filter-branch` with an env-filter to rewrite the author and committer name/email on all existing commits.
+    - Force-pushed `main` and the `v0.76-beta-hotfix1` tag.
+    - Final SHAs (before this log update):
+      - Initial commit: `7f4a259`
+      - docs add links: `1ec5cd8`
+      - Unlicense: `e1554b2`
+      - rigorous docs: `4e2220a`
+      - build distribution: `3931afe`
+      - logo: `0d21342`
+    - All commits now show `Renegade1993` as the author with the account-linked email, and the release tag points to `7f4a259`.
 
 **Status/Next steps:**
 - The 90-day PAT should be deleted from GitHub settings once the upload is confirmed working.
