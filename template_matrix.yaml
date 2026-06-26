@@ -1,0 +1,223 @@
+# Template Translation Matrix for CA -> Cameo (RA_TEMPERAT)
+# Based on analysis of 39 tournament maps (320 unique templates, 475,044 placements)
+# Format: deterministic mapping from CA template ID -> Cameo template ID
+
+meta:
+  source_mod: ca
+  target_tileset: RA_TEMPERAT
+  target_version: playtest-20260614
+  total_maps_analyzed: 39
+  total_template_placements: 475044
+  unique_templates: 320
+  generated: 2026-06-18
+
+# ============================================================================
+# PRINCIPLED TEMPLATE REMAPPING
+# Based on terrain category matching, not adjacency heuristics
+# ============================================================================
+
+# Template categories in RA_TEMPERAT (from ra_temperat.yaml):
+# - Clear (template 255)
+# - Water (templates 1, 2)
+# - Beach (templates 19-29)
+# - River (templates 231-234)
+# - Road (templates 199-230)
+# - Rock/Rough (templates 156-167 cliffs, 231-234 river rocks)
+# - Bridge (template 590, 591 - rocky water crossings)
+
+# ============================================================================
+# CA-SPECIFIC TEMPLATES THAT CAMEO LACKS
+# These are templates >255 that need deterministic mapping
+# ============================================================================
+
+ca_template_mappings:
+  # --------------------------------------------------------------------------
+  # WATER WRECKAGE / DEBRIS TEMPLATES
+  # These appear at bottom-right water areas but render incorrectly
+  # Maps 157 (CA custom water debris) -> 255 (clear)
+  # Template 166 (water rocky edge) -> 166 (keep as-is to preserve rocky edge)
+  # IMPORTANT: These were incorrectly mapped to water, causing water to appear where rocks should be
+  # --------------------------------------------------------------------------
+  157: 255    # Water wreckage -> clear (987 placements)
+  166: 166    # Water rocky edge -> keep as-is (718 placements)
+
+  # --------------------------------------------------------------------------
+  # ROCKY DEBRIS (CA custom)
+  # Template 221 is rocky debris (Rock terrain), not water crossing
+  # Was incorrectly mapped to water (2), causing water expansion issues
+  # --------------------------------------------------------------------------
+  221: 255  # Rocky debris -> clear (243 placements)
+
+  # --------------------------------------------------------------------------
+  # CA CUSTOM HILL/TERRAIN TEMPLATES -> clear (no RA equivalent)
+  # These are decorative terrain features unique to CA
+  # --------------------------------------------------------------------------
+  400: 255  # hill01 -> clear
+  # 401-404: Standard RA cliff tiles (cliffsl1-4) - keep as-is to preserve mountain ranges
+  # 405: cliffsw1 (water cliff) - keep as-is
+  # 406: cliff tiles - keep as-is (2 placements at 85,55 and 85,56)
+
+  # --------------------------------------------------------------------------
+  # TEMPLATE 0 (invalid) -> clear
+  # --------------------------------------------------------------------------
+  0: 255
+
+# ============================================================================
+# TEMPLATE CATEGORIES FOR VALIDATION
+# Used to verify remaps are terrain-compatible
+# ============================================================================
+ra_temperat_categories:
+  clear:
+    templates: [255]
+    size_varies: true
+    terrain: Clear
+
+  water:
+    templates: [1, 2]
+    sizes:
+      1: [1, 1]  # w1.tem
+      2: [2, 2]  # w2.tem
+    terrain: Water
+
+  beach:
+    templates: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+    terrain: [Water, Beach, Rock, Clear]
+
+  river:
+    templates: [231, 232, 233, 234]
+    terrain: [Rock, Water, Rough]
+
+  rocky_water_crossing:
+    templates: [590, 591]
+    sizes:
+      590: [1, 2]  # fjord1.tem - vertical
+      591: [2, 1]  # fjord2.tem - horizontal
+    terrain: Rough
+    category: Bridge
+
+  cliffs:
+    templates: [156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167]
+    terrain: [Rock, Rough]
+    category: Cliffs
+
+  road:
+    templates: [199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 227, 228]
+    terrain: [Road, Rock, Rough, Clear]
+
+# ============================================================================
+# CA TEMPLATE INVENTORY (non-standard templates found in CA maps)
+# Format: template_id: {count: placements, category: inferred, action: map_to}
+# ============================================================================
+ca_templates_inventory:
+  # From template_inventory.json - templates >255 with significant counts
+
+  # 400 range - custom hills/debris
+  400: { count: 32, category: debris, action: map_to_clear }
+  401: { count: 164, category: hill, action: investigate }
+  402: { count: 320, category: hill, action: investigate }
+  403: { count: 270, category: hill, action: investigate }
+  404: { count: 160, category: hill, action: investigate }
+  405: { count: 35, category: hill, action: map_to_clear }
+  406: { count: 30, category: hill, action: map_to_clear }
+
+  # 256-258 range
+  256: { count: 146, category: unknown, action: investigate }
+  258: { count: 50, category: unknown, action: investigate }
+
+  # 296-299 range
+  296: { count: 18, category: unknown, action: investigate }
+  297: { count: 21, category: unknown, action: investigate }
+  298: { count: 84, category: unknown, action: investigate }
+  299: { count: 21, category: unknown, action: investigate }
+
+  # 308, 309, 312, 324, 326
+  308: { count: 24, category: unknown, action: investigate }
+  309: { count: 18, category: unknown, action: investigate }
+  312: { count: 18, category: unknown, action: investigate }
+  324: { count: 18, category: unknown, action: investigate }
+  326: { count: 24, category: unknown, action: investigate }
+
+  # 332-335 range
+  332: { count: 16, category: unknown, action: investigate }
+  333: { count: 20, category: unknown, action: investigate }
+  334: { count: 21, category: unknown, action: investigate }
+  335: { count: 16, category: unknown, action: investigate }
+
+  # 382-385 range
+  382: { count: 56, category: unknown, action: investigate }
+  383: { count: 55, category: unknown, action: investigate }
+  384: { count: 60, category: unknown, action: investigate }
+  385: { count: 44, category: unknown, action: investigate }
+
+  # 500+ range
+  500: { count: 119, category: unknown, action: investigate }
+  501: { count: 63, category: unknown, action: investigate }
+  502: { count: 44, category: unknown, action: investigate }
+  507: { count: 24, category: unknown, action: investigate }
+
+  # 551, 554, 557
+  551: { count: 18, category: unknown, action: investigate }
+  554: { count: 18, category: unknown, action: investigate }
+  557: { count: 18, category: unknown, action: investigate }
+
+  # 582, 584, 588
+  582: { count: 16, category: unknown, action: investigate }
+  584: { count: 16, category: unknown, action: investigate }
+  588: { count: 17, category: unknown, action: investigate }
+
+  # 626, 627
+  626: { count: 32, category: unknown, action: investigate }
+  627: { count: 60, category: unknown, action: investigate }
+
+  # Template 0 (should not exist but appears in some maps)
+  0: { count: 78, category: error, action: map_to_clear }
+
+# ============================================================================
+# IMPLEMENTATION GUIDANCE
+# ============================================================================
+implementation:
+  # The key fix: use deterministic mapping instead of adjacency heuristics
+  # Old approach: remap if adjacent to water (caused false positives)
+  # New approach: remap based on template ID alone (deterministic)
+
+  # For templates 157, 166:
+  # - These are CA water wreckage templates
+  # - They should ALWAYS become water in RA
+  # - The issue before was remapping land cells that used these IDs
+  # - Fix: verify the cells are actually in water areas before remapping
+  # - Or: trust that CA only uses these templates for water
+
+  # For template 221:
+  # - This is CA rocky water crossing
+  # - Should ALWAYS become 591 (RA rocky water crossing)
+  # - No adjacency check needed - the template itself defines the crossing
+
+  # High ID templates (400+, 500+, etc):
+  # - Most should map to clear (255) if no equivalent
+  # - Some may have specific equivalents (investigate case-by-case)
+
+  validation_steps:
+    - "1. Convert test maps with new matrix"
+    - "2. Check Abendland bottom-right water area for correct rendering"
+    - "3. Verify rocky crossings appear on Abendland (221->591)"
+    - "4. Count remapped tiles - should be ~16 on Abendland, not 69-81"
+    - "5. Visual check in OpenRA editor - no grass where water should be"
+
+# ============================================================================
+# KNOWN ANCHORS (from prior session notes)
+# Use these to verify the fix works
+# ============================================================================
+known_anchors:
+  abendland_bottom_right:
+    issue: "Water/wreckage tiles render as grass (template 255)"
+    expected: "Should be water"
+    templates_involved: [157, 166]
+
+  abendland_rocky_crossings:
+    issue: "Rocky water crossings need to be template 591"
+    expected: "~14 cells of template 221 should become 591"
+    verification: "Small 1-cell minor crossing north should already be 591"
+
+  abendland_target_remap_count:
+    old: "69-81 cells (over-eager)"
+    new: "~16 cells (correct)"

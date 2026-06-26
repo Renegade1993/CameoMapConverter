@@ -1,0 +1,1 @@
+Put .oramap files you want to convert into this folder, then run 'Convert Maps.cmd'. Converted maps appear in 'converted'.

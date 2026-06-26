@@ -1,0 +1,44 @@
+# BI Protocol Configuration (Simple Format)
+# Format: VERSION|KEY|FILE1,FILE2,...
+# Lines starting with # are comments
+#
+# IMPORTANT: This system is specifically for OpenRA and the Balance Iteration (BI) 
+# patch era 4.3-4.6. The BI versions refer to community balance packages for 
+# Combined Arms (CA) / Balance Iteration tournament maps during this specific OpenRA era.
+
+# BI-4.3
+4.3|Rules|bi-lobby-rules.yaml,bi-briefing-rules.yaml,bi-balance-rules.yaml,ERCC21andBCC11-rules.yaml,hlpr_deco.yaml,debris_deco.yaml
+4.3|Sequences|bi-sequences.yaml,ERCC2-sequences.yaml,hlpr_sequences.yaml,debris_sequences.yaml
+4.3|Weapons|bi-weapons.yaml
+4.3|Notifications|bi-notifications.yaml
+4.3|Voices|bi-voices.yaml
+
+# BI-4.4
+4.4|Rules|ERCC21andBCC11-rules.yaml,bi-balance-rules.yaml,bi-briefing-rules.yaml,bi-lobby-rules.yaml
+4.4|Sequences|ERCC2-sequences.yaml,bi-sequences.yaml
+4.4|Weapons|bi-weapons.yaml
+4.4|Notifications|bi-notifications.yaml
+4.4|Voices|bi-voices.yaml
+
+# BI-4.5
+4.5|Rules|ERCC21andBCC11-rules.yaml,bi-balance-rules.yaml,bi-briefing-rules.yaml,bi-lobby-rules.yaml
+4.5|Sequences|ERCC2-sequences.yaml,bi-sequences.yaml
+4.5|Weapons|bi-weapons.yaml
+4.5|Notifications|bi-notifications.yaml
+4.5|Voices|bi-voices.yaml
+
+# BI-4.6
+4.6|Rules|bi-briefing-rules.yaml,bi-lobby-rules.yaml,ERCC21andBCC11-rules.yaml,bi-queue-limits.yaml,bi-balance-rules.yaml
+4.6|Sequences|bi-sequences.yaml,ERCC2-sequences.yaml
+4.6|Weapons|bi-weapons.yaml
+4.6|Notifications|bi-notifications.yaml
+4.6|Voices|bi-voices.yaml
+4.6|FluentMessages|bi.ftl
+
+# Default for unknown versions
+DEFAULT|Rules|bi-briefing-rules.yaml,bi-lobby-rules.yaml,bi-balance-rules.yaml,ERCC21andBCC11-rules.yaml
+DEFAULT|Sequences|bi-sequences.yaml,ERCC2-sequences.yaml
+DEFAULT|Weapons|bi-weapons.yaml
+DEFAULT|Notifications|bi-notifications.yaml
+DEFAULT|Voices|bi-voices.yaml
+DEFAULT|FluentMessages|bi.ftl

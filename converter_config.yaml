@@ -1,0 +1,66 @@
+# Cameo Map Converter Configuration File
+# This file allows customization of converter behavior without modifying code
+
+# Resource configuration
+RESOURCE_RICHNESS: 1.0  # 0.5=all ore, 1.0=balanced/no gems, 1.5=all gems
+WATER_FILL_SAFETY: 60   # don't auto-fill a leaking water blob larger than this
+
+# Palette handling
+PALETTE_DEFAULT: "drop"  # "drop" or "keep"
+PALETTE_OVERRIDES: {}
+
+# File handling
+KEEP_NAMES:
+  - "map.yaml"
+  - "map.bin"
+  - "map.png"
+NEW_CATEGORY: "Tournament"
+CONVERTER_TAG: "Cameo Conversion"
+
+# External references to remove from map.yaml
+EXTERNAL_REF_KEYS:
+  - "Rules"
+  - "Sequences"
+  - "Weapons"
+  - "Voices"
+  - "Notifications"
+  - "FluentMessages"
+
+# Actor handling
+ACTOR_NEVER_DROP:
+  - "mpspawn"
+  - "waypoint"
+ACTORS_FILE: "cameo_actors.txt"
+
+# BI Protocol configuration
+BI_PROTOCOL_FILE: "bi_protocol.yaml"
+
+# Tileset mappings
+TILESET_MAP:
+  TEMPERAT: "RA_TEMPERAT"
+  SNOW: "RA_SNOW"
+  DESERT: "RA_DESERT"
+  INTERIOR: "RA_INTERIOR"
+  RA_TEMPERAT: "RA_TEMPERAT"
+  RA_SNOW: "RA_SNOW"
+  RA_DESERT: "RA_DESERT"
+  RA_INTERIOR: "RA_INTERIOR"
+
+# Logging configuration
+LOGGING:
+  # Log directory (relative to converter directory)
+  LOG_DIR: "log"
+  
+  # Per-log-type file logging (all OFF by default to prevent bloat)
+  # Set to true to enable file output for that log type
+  ENABLE_DEBUG: false
+  ENABLE_INFO: false
+  ENABLE_WARNING: false
+  ENABLE_ERROR: false
+  
+  # Log file rotation settings
+  MAX_BYTES: 10485760  # 10 MB per log file
+  BACKUP_COUNT: 5      # Number of backup files to keep
+  
+  # Console logging level (always active)
+  CONSOLE_LEVEL: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL

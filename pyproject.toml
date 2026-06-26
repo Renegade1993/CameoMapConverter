@@ -1,0 +1,20 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "-v",
+    "--tb=short",
+]
+markers = [
+    "unit: Fast unit tests",
+    "integration: Integration tests",
+    "slow: Slow tests that require more time",
+    "gui: GUI-related tests",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]

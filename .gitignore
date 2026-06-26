@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.log
+
+# PyInstaller
+build/
+dist/
+*.spec.bak
+
+# Runtime / user data
+log/
+*.json
+!bi_protocol.yaml
+!actor_matrix.yaml
+!template_matrix.yaml
+!converter_config.yaml
+!ra_temperat.yaml
+!requirements.txt
+!pyproject.toml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Distribution / build artifacts
+# The release zips and compiled EXE are uploaded as GitHub Release assets, not stored in git.
+Distribution/
+CameoMapConverter.exe
+
+# Crash / debug logs
+gui_crash_log.txt
+paint_matrix_debug.txt

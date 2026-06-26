@@ -1,0 +1,485 @@
+# Actor Translation Matrix for CA -> Cameo
+# Generated from analysis of 39 tournament maps (422 unique actors, 16,466 placements)
+# Format: source_actor: target_actor (or "drop" to remove)
+#
+# IMPORTANT - Rock/stone toggle behavior:
+# The source actors below (rocks*, stones*, 1x1rocks*, 2x1stones*, 1x2stones*, 2x2rocks*)
+# are mapped to Cameo rock1-rock6. This mapping is ONLY applied when the
+# "Remove Problematic Actors" checkbox is UNCHECKED (or --no-remove-actors is passed
+# on the CLI). When the checkbox is checked (default), these actors are DROPPED
+# because the Cameo rock assets use .des (desert) palette files that render
+# incorrectly on the RA_TEMPERAT tileset.
+# Bushes and other decorative actors (sbush*, bush*, lbush*) are always dropped
+# because they have no defensible Cameo equivalent with the same in-game footprint.
+
+meta:
+  source_mod: ca
+  target_mod: cameo
+  target_version: playtest-20260614
+  total_maps_analyzed: 39
+  total_placements: 16466
+  unique_actors: 422
+  generated: 2026-06-18
+
+# ============================================================================
+# LAYER 1: EXACT MATCHES (actor exists in both CA/BI and Cameo)
+# These actors exist with the same name in both mods - pass through
+# ============================================================================
+exact_matches:
+  # Standard trees (t01-t17, tc01-tc05, t10-t16)
+  - t01
+  - t02
+  - t03
+  - t04
+  - t05
+  - t06
+  - t07
+  - t08
+  - t09
+  - t10
+  - t11
+  - t12
+  - t13
+  - t14
+  - t15
+  - t16
+  - t17
+  - tc01
+  - tc02
+  - tc03
+  - tc04
+  - tc05
+
+  # System actors
+  - waypoint
+  - mpspawn
+
+  # Resource nodes (handled by converter logic, but listed for completeness)
+  - mine
+  - gmine
+
+  # Standard decorations that exist in both
+  - barb        # barrel
+  - barl        # barrel variant
+  - brl3        # barrel variant 3
+  - fenc        # fence
+  - wood        # wood pile/debris
+
+  # Civilian vehicles (v01-v37 exist in Cameo)
+  - v01
+  - v02
+  - v03
+  - v04
+  - v05
+  - v06
+  - v07
+  - v08
+  - v09
+  - v10
+  - v11
+  - v12
+  - v13
+  - v14
+  - v15
+  - v16
+  - v17
+  - v18
+  - v19
+  - v20
+  - v21
+  - v22
+  - v23
+  - v24
+  - v25
+  - v26
+  - v27
+  - v28
+  - v29
+  - v30
+  - v31
+  - v32
+  - v33
+  - v34
+  - v35
+  - v36
+  - v37
+
+  # Other standard decorations
+  - oilb        # oil barrel
+  - ice1        # ice formations
+  - ice2
+  - ice3
+  - ice4
+  - ice5
+  - ice6
+  - ice7
+  - ice8
+  - ice9
+  - box         # crate/box
+  - mslo        # missile silo
+  - cabhut      # cabin/hut
+
+# ============================================================================
+# LAYER 2: PATTERN-BASED REMAPPING
+# Regex patterns that collapse variants to base actors
+# ============================================================================
+pattern_rules:
+  # Tree color variants: t01o, t01p, t01r, t01y, t01b -> t01
+  - pattern: '^(t\d{2}|tc\d{2})([opyrb])$'
+    replacement: '\1'
+    description: 'Tree color variants (o=orange, p=pink, r=red, y=yellow, b=blue)'
+
+  # Stones variants: stones1-14 -> rock1 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  - pattern: '^stones\d+$'
+    replacement: 'rock1'
+    description: 'All stone variants -> rock1 if toggle off, else dropped (.des palette issue on RA_TEMPERAT)'
+
+  # Rock variants: rocks1, rocks2, rocks3 -> rock1 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  - pattern: '^rocks\d+$'
+    replacement: 'rock1'
+    description: 'Rock variants -> rock1 if toggle off, else dropped (.des palette issue on RA_TEMPERAT)'
+
+  # Small rock variants: 1x1rocks1, 1x1rocks2, 1x1rocks3, 1x1searocks1-3 -> rock1 when toggle off; dropped otherwise.
+  - pattern: '^1x1(?:sea)?rocks\d+$'
+    replacement: 'rock1'
+    description: '1x1 rock variants -> rock1 if toggle off, else dropped (.des palette issue on RA_TEMPERAT)'
+
+  # 2x1 stones -> rock5 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  - pattern: '^2x1stones\d+$'
+    replacement: 'rock5'
+    description: '2x1 stones -> rock5 if toggle off, else dropped (.des palette issue on RA_TEMPERAT)'
+
+  # 1x2 stones -> rock3 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  - pattern: '^1x2stones\d+$'
+    replacement: 'rock3'
+    description: '1x2 stones -> rock3 if toggle off, else dropped (.des palette issue on RA_TEMPERAT)'
+
+  # 2x2 rocks -> rock6 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  - pattern: '^2x2rocks\d+$'
+    replacement: 'rock6'
+    description: '2x2 rocks -> rock6 if toggle off, else dropped (.des palette issue on RA_TEMPERAT)'
+
+  # 2x1 rocks -> rock5
+  - pattern: '^2x1rocks\d+$'
+    replacement: 'rock5'
+    description: '2x1 rocks map to rock5'
+
+  # Tree clumps -> tc0X mappings (high ROI: 602 placements)
+  # These are CA-specific tree clusters that need Cameo equivalents
+  - pattern: '^tgc1$'
+    replacement: 'tc01'
+    description: 'Tree clump 1 -> cluster 1'
+
+  - pattern: '^tgc2$'
+    replacement: 'tc02'
+    description: 'Tree clump 2 -> cluster 2'
+
+  - pattern: '^tgc3$'
+    replacement: 'tc03'
+    description: 'Tree clump 3 -> cluster 3'
+
+  - pattern: '^tgd$'
+    replacement: 'tc04'
+    description: 'Tree dense -> cluster 4'
+
+  - pattern: '^tg1$'
+    replacement: 'tc02'
+    description: 'Tree group 1 -> cluster 2'
+
+  - pattern: '^tg2$'
+    replacement: 'tc03'
+    description: 'Tree group 2 -> cluster 3'
+
+  # .husk variants maintain base mapping
+  - pattern: '^([a-z0-9_]+)\.husk$'
+    replacement: '\1.husk'
+    description: 'Keep husk with same base actor'
+
+# ============================================================================
+# LAYER 3: EXPLICIT REMAPS (individual actor overrides)
+# For actors that don't match patterns but need specific mapping
+# ============================================================================
+explicit_remaps:
+  # CA-specific -> Cameo equivalents
+  tgb: tc04           # Tree group B -> cluster 4
+  tgb.husk: tc04      # Tree group B husk
+  tc01b: tc01         # Tree cluster 1 variant
+
+  # Tree variants (covered by pattern, but listed for clarity)
+  t01o: t01
+  t01p: t01
+  t01r: t01
+  t02r: t02
+  t03o: t03
+  t03p: t03
+  t03y: t03
+  t05o: t05
+  t05p: t05
+  t05r: t05
+  t05y: t05
+  t06o: t06
+  t06r: t06
+  t06y: t06
+  t07o: t07
+  t07p: t07
+  t07r: t07
+  t07y: t07
+  t08b: t08
+  t08o: t08
+  t08p: t08
+  t08r: t08
+  t08y: t08
+  t10p: t10
+  t10r: t10
+  t10y: t10
+  t11o: t11
+  t11p: t11
+  t11y: t11
+  t12o: t12
+  t12p: t12
+  t12y: t12
+  t13o: t13
+  t13p: t13
+  t13r: t13
+  t14o: t14
+  t14r: t14
+  t14y: t14
+  t15o: t15
+  t15p: t15
+  t15y: t15
+  t16o: t16
+  t16p: t16
+  t16r: t16
+  t16y: t16
+  t17o: t17
+  t17r: t17
+
+  # Stones -> rock1 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  # PALETTE ISSUE: .des files render wrong on RA_TEMPERAT.
+  stones1: rock1
+  stones2: rock1
+  stones3: rock1
+  stones4: rock1
+  stones11: rock1
+  stones12: rock1
+  stones13: rock1
+  stones14: rock1
+
+  # Individual rocks -> rock1 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  # PALETTE ISSUE: .des files render wrong on RA_TEMPERAT.
+  rocks1: rock1
+  rocks2: rock1
+  rocks3: rock1
+
+  # 1x1 rock variants -> rock1 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  # PALETTE ISSUE: .des files render wrong on RA_TEMPERAT.
+  rocks_1x1_1: rock1
+  rocks_1x1_2: rock1
+  rocks_1x1_3: rock1
+  rocks_1x1_4: rock1
+  1x1rocks1: rock1
+  1x1rocks2: rock1
+  1x1rocks3: rock1
+  1x1searocks1: rock1
+  1x1searocks2: rock1
+  1x1searocks3: rock1
+
+  # 2x1 stones -> rock5 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  # PALETTE ISSUE: .des files render wrong on RA_TEMPERAT.
+  2x1stones1: rock5
+  2x1stones2: rock5
+  2x1stones3: rock5
+
+  # 2x1 rocks -> rock1 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  # PALETTE ISSUE: .des files render wrong on RA_TEMPERAT.
+  rocks_2x1_3: rock1
+  rocks_2x1_4: rock1
+
+  # 2x2 rocks -> rock6 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  # PALETTE ISSUE: .des files render wrong on RA_TEMPERAT.
+  2x2rocks1: rock6
+  2x2rocks2: rock6
+  2x2rocks3: rock6
+  2x2rocks4: rock6
+
+  # 1x2 stones -> rock3 when "Remove Problematic Actors" is disabled; dropped otherwise.
+  # PALETTE ISSUE: .des files render wrong on RA_TEMPERAT.
+  1x2stones1: rock3
+  1x2stones2: rock3
+  1x2stones3: rock3
+
+  # Tree clumps (HIGH ROI - 602 total placements)
+  tgc1: tc01    # 139 placements
+  tgc2: tc02    # 117 placements
+  tgc3: tc03    # (estimate)
+  tgd: tc04     # 64 placements
+  tgd2: tc05    # 50 placements (estimate)
+  tg1: tc02     # 60 placements
+  tg2: tc03     # 61 placements
+
+  # Husks of tree clumps
+  tgc1.husk: tc01.husk
+  tgc2.husk: tc02.husk
+  tg1.husk: tc02.husk
+
+  # Bushes -> DROP (no defensible Cameo equivalent; wrong footprint if remapped to rocks)
+  # NOTE: Leave as blank/drop entries for future engine-savvy maintainers to fill in.
+  sbush1: drop
+  sbush2: drop
+  sbush3: drop
+  bush1: drop
+  bush2: drop
+  bush3: drop
+  bush4: drop
+  bush5: drop
+  lbush1: drop
+  lbush2: drop
+
+# ============================================================================
+# LAYER 4: DROPS (actors to remove - no Cameo equivalent or incompatible)
+# ============================================================================
+drops:
+  # Bushes (no defensible Cameo equivalent; wrong footprint if remapped to rocks)
+  sbush1: "Small bush - no equivalent"
+  sbush2: "Small bush - no equivalent"
+  sbush3: "Small bush - no equivalent"
+  bush1: "Bush - no equivalent"
+  bush2: "Bush - no equivalent"
+  bush3: "Bush - no equivalent"
+  bush4: "Bush - no equivalent"
+  bush5: "Bush - no equivalent"
+  lbush1: "Large bush - no equivalent"
+  lbush2: "Large bush - no equivalent"
+
+  # Terrain transition pieces (CA-specific tile blending)
+  transition: "CA-specific terrain transition - no Cameo equivalent"
+  dsdy: "CA terrain piece - no Cameo equivalent"
+  swall: "CA-specific wall/terrain - no Cameo equivalent"
+
+  # Moon/space props (theater-specific, won't work in RA_TEMPERAT)
+  msp01: "Moon prop - incompatible theater"
+  msp02: "Moon prop - incompatible theater"
+  mcl01: "Moon civilian building - incompatible"
+  mcl02: "Moon civilian building - incompatible"
+  # ... (all mcl##, msp##, sc##, p##a-p##h variants)
+
+  # Water cliffs (theater-specific)
+  wcliffsh1: "Water cliff - incompatible"
+  wcliffsv1: "Water cliff - incompatible"
+  # ... (all wcliff* variants)
+
+  # Graves (no equivalent)
+  graves: "Grave decoration - no equivalent"
+  graves1: "Grave decoration - no equivalent"
+  graves2: "Grave decoration - no equivalent"
+  graves3: "Grave decoration - no equivalent"
+  graves4: "Grave decoration - no equivalent"
+
+  # Ruins (check if cameo has ruins*)
+  ruins1: "Ruins - check for cameo equivalent"
+  ruins2: "Ruins - check for cameo equivalent"
+  ruinssm1: "Small ruins - check"
+  ruinssm2: "Small ruins - check"
+
+  # Civilian buildings (check for equivalents)
+  engh01: "English house 01 - check"
+  engh02: "English house 02 - check"
+  engh03: "English house 03 - check"
+  engch: "English church - check"
+  come1: "Comet structure - check"
+  monastery: "Monastery - check"
+  castle: "Castle - check"
+  crch: "Church - check"
+
+  # Misc terrain pieces
+  tilled: "Tilled ground - check"
+  tilled1: "Tilled ground variant - check"
+  tilled2: "Tilled ground variant - check"
+  wtrblk: "Water block - check"
+  c11: "Civilian building - check"
+  crater1: "Crater - check if cameo has crat*"
+  crater2: "Crater - check"
+  ctg1: "Terrain - check"
+  ctg2: "Terrain - check"
+  heystack: "Haystack - check"
+  heystack1: "Haystack - check"
+
+  # One-off decorations
+  fiveaces: "Map signature - drop"
+  happy: "Map signature - drop"
+  anjew: "Map signature - drop"
+  bain: "Map signature - drop"
+  blackened: "Map signature - drop"
+  ksk_nico: "Map signature - drop"
+  mone.m: "Map signature - drop"
+  sigil: "Map signature - drop"
+  stgoat: "Map signature - drop"
+  upps: "Map signature - drop"
+
+  # River/ford (likely theater-specific)
+  fordact2: "Ford - check"
+  fordhorz: "Ford - check"
+  fordvert: "Ford - check"
+  river1: "River - check"
+  river3: "River - check"
+  river4: "River - check"
+  rivers_3x2_1: "River - check"
+
+  # Other
+  mttop: "Mountain top - check"
+  grtilled0: "Tilled ground - check"
+  rice: "Rice paddy - check"
+  tecn2: "Tech building - check"
+  1x2grebld: "Building - check"
+
+# ============================================================================
+# STATISTICS
+# Summary of placement counts for priority mapping
+# ============================================================================
+statistics:
+  high_impact_actors:
+    transition: 532
+    wood: 458
+    tgc1: 139
+    tgc2: 117
+    v35: 118
+    v37: 132
+    swall: 102
+    stones1: 150
+    stones3: 143
+    stones2: 142
+    stones12: 121
+    tgb: 76
+    tgd: 64
+    tg2: 61
+    tg1: 60
+    dsdy: 194
+    barl: 225
+    brl3: 220
+    fenc: 204
+    barb: 165
+
+  tree_clumps_total: 602  # tgc1 + tgc2 + tgd + tg2 + tg1 + more
+  stones_total: ~1500    # stones1-14 + variants
+  ca_specific_total: ~2000  # wood, barl, brl3, fenc, barb, dsdy, swall, etc.
+
+# ============================================================================
+# IMPLEMENTATION NOTES
+# ============================================================================
+implementation:
+  priority_order:
+    - "1. Pattern rules (most efficient, handles variants)"
+    - "2. Explicit remaps (specific overrides)"
+    - "3. Exact match check (pass-through)"
+    - "4. Drop list (remove unmatched)"
+
+  code_changes_needed:
+    - "Update ACTOR_OVERRIDES dict to use pattern matching"
+    - "Add regex matching in converter actor validation"
+    - "Generate warnings for dropped actors with counts"
+    - "Add --audit mode to report unmapped actors"
+
+  validation:
+    - "Run on all 39 maps, verify no 'unknown type' errors"
+    - "Count remaining drops, verify against this matrix"
+    - "Visual check: tree clumps appear, stones -> rocks, no pink errors"
