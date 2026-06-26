@@ -1,5 +1,5 @@
 ﻿## SID-20260626-7a8f3e — Execute GitHub upload for CMC
-last edited: 2026-06-26 10:23
+last edited: 2026-06-26 10:39
 
 **Goal:** Execute the planned GitHub upload: create public repo `CameoMapConverter`, commit the source tree, and publish `v0.76-beta-hotfix1` release with zip assets.
 
@@ -15,21 +15,81 @@ last edited: 2026-06-26 10:23
 5. Create the release and attach the two distribution zips.
 6. Verify and update logs.
 
-**Evidence:**
-- GitHub user: `Renegade1993`.
-- Repo created: `https://github.com/Renegade1993/CameoMapConverter`.
-- Local commit: `014c9f2` (88 files, 29984 insertions).
-- Pushed `main` to origin; remote URL cleaned (no token in `.git/config`).
-- Release created: `https://github.com/Renegade1993/CameoMapConverter/releases/tag/v0.76-beta-hotfix1`.
-- Release assets:
-  - `CameoMapConverter_v0.76-beta-hotfix1.zip` (57,068,738 bytes).
-  - `CameoMapConverter_v0.76-beta-hotfix1_source.zip` (225,305 bytes).
-- Repo root contains source files, configs, docs, tests, `dev_tools/`, and `maps/`.
+**Detailed execution log:**
+
+1. **Local git preparation**
+   - Project path: `C:\Users\Kmoney\Documents\AI Projects\Cameo Work\Maps and Solutions Scripts work 06-15-2026\Cameo Map Converter`.
+   - No existing `.git` directory.
+   - Created `.gitignore` excluding:
+     - Python build artifacts (`__pycache__/`, `*.py[cod]`, `*.pyo`, `*.pyd`, `*.egg-info/`, `*.log`)
+     - PyInstaller temp files (`build/`, `dist/`, `*.spec.bak`)
+     - Runtime/user data (`log/`, `*.json`, `presets.json`, `settings.json`)
+     - IDE folders (`.vscode/`, `.idea/`, `*.code-workspace`) and OS files (`.DS_Store`, `Thumbs.db`, `desktop.ini`)
+     - Distribution build folders (`Distribution/`)
+     - Compiled EXE (`CameoMapConverter.exe`)
+     - Crash/debug logs (`gui_crash_log.txt`, `paint_matrix_debug.txt`)
+   - Ran:
+     - `git init`
+     - `git branch -M main`
+     - `git config --local user.name "Kmoney"`
+     - `git config --local user.email "Kmoney@users.noreply.github.com"`
+     - `git add .`
+     - `git commit -m "Initial commit: Cameo Map Converter v0.76-beta-hotfix1"`
+   - Result: root commit `014c9f2`, 88 files changed, 29984 insertions.
+
+2. **GitHub authentication**
+   - Used a GitHub Personal Access Token (classic) with `public_repo` scope (90-day expiry, broadly scoped).
+   - The token was not written to any repo file; it was passed only to PowerShell `Invoke-RestMethod` headers and to a temporary git remote URL.
+   - Identified the authenticated account via `GET https://api.github.com/user`.
+   - GitHub account: `Renegade1993`.
+
+3. **Remote repository creation**
+   - Endpoint: `POST https://api.github.com/user/repos`.
+   - Payload:
+     - `name`: `CameoMapConverter`
+     - `description`: "Converts OpenRA/Combined Arms tournament maps to Cameo mod format"
+     - `private`: `false`
+     - `auto_init`: `false`
+   - Result: repo created at `https://github.com/Renegade1993/CameoMapConverter`.
+
+4. **Push**
+   - Added origin with the token embedded in the URL (temporary), pushed, then removed the token from the URL.
+   - Commands:
+     - `git remote remove origin`
+     - `git remote add origin https://<PAT>@github.com/Renegade1993/CameoMapConverter.git`
+     - `git push -u origin main`
+     - `git remote set-url origin https://github.com/Renegade1993/CameoMapConverter.git`
+   - Result: `main` pushed to origin; `.git/config` no longer contains the token.
+
+5. **Release creation and asset upload**
+   - Endpoint: `POST https://api.github.com/repos/Renegade1993/CameoMapConverter/releases`.
+   - Tag: `v0.76-beta-hotfix1`
+   - Target: `main`
+   - Title: `Cameo Map Converter v0.76-beta-hotfix1`
+   - Prerelease: `true`
+   - Body included the hotfix notes and file list.
+   - Result: release created at `https://github.com/Renegade1993/CameoMapConverter/releases/tag/v0.76-beta-hotfix1`.
+   - Asset upload endpoint: `POST https://uploads.github.com/repos/Renegade1993/CameoMapConverter/releases/{id}/assets?name={filename}` with `Content-Type: application/zip`.
+   - Assets:
+     - `CameoMapConverter_v0.76-beta-hotfix1.zip` — 57,068,738 bytes (≈54.4 MB)
+     - `CameoMapConverter_v0.76-beta-hotfix1_source.zip` — 225,305 bytes (≈220 KB)
+
+6. **Verification**
+   - Queried `GET https://api.github.com/repos/Renegade1993/CameoMapConverter/releases/tags/v0.76-beta-hotfix1` and confirmed both assets are present.
+   - Queried `GET https://api.github.com/repos/Renegade1993/CameoMapConverter/contents` and confirmed repo root contains source files, configs, docs, tests, `dev_tools/`, and `maps/`.
+   - Checked `git remote -v` to confirm remote URL is clean.
+   - Inspected `CameoMapConverter_v0.76-beta-hotfix1.zip` and confirmed it contains `CameoMapConverter.exe`, `README.md`, and `QUICKSTART.md`.
+
+7. **License follow-up**
+   - User chose **The Unlicense** (public domain dedication, zero conditions).
+   - Added `LICENSE` file with the standard Unlicense text from `https://choosealicense.com/licenses/unlicense/`.
+   - Committed as `chore: add The Unlicense (public domain dedication)` (`b0e1b39`).
+   - GitHub detected the license as `The Unlicense` on the repo page (`GET https://api.github.com/repos/Renegade1993/CameoMapConverter`).
 
 **Status/Next steps:**
-- License: The Unlicense (public domain dedication). `LICENSE` file added in a follow-up commit.
-- Consider deleting the 90-day PAT from GitHub settings once confirmed working.
+- The 90-day PAT should be deleted from GitHub settings once the upload is confirmed working.
 - The `Cameo Work\to delete\` folder and old backup snapshots were not committed.
+- The release source zip was built before the license was added; if a licensed source snapshot is needed, regenerate and re-upload it.
 
 ---
 
